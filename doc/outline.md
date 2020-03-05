@@ -1,16 +1,18 @@
-# Wprowadzenie (5p)
+# Konspekt pracy
+
+## Wprowadzenie (5p)
 
 - motywacja
 
-# Optymalizacja (5p) 
+## Optymalizacja (5p)
 
 - Historia pojęcia
 
 - Definicja zadania optymalizacji
 
-- Taksonomia metod optymalizacyjnych 
+- Taksonomia metod optymalizacyjnych
 
-# Metaheurystyki (15p)
+## Metaheurystyki (15p)
 
 - Historia i definicja pojęcia
 
@@ -18,28 +20,28 @@
 
 - Metaheurystyki populacyjne
 
-- todo
-
-# Adaptacja macierzy kowariancji (20p) 
+## Adaptacja macierzy kowariancji (20p)
 
 - Strategie ewolucyjne
 
 - EDA
-
+- DES
 - CMA
 
-- todo
+## Modyfikacja reguły macierzy kowariancji (15p)
 
-# Modyfikacja reguły macierzy kowariancji (15p) 
-
-- Ledoit-Wolf, etc. 
+- Ledoit-Wolf, etc.
 
 - todo
 
 - Nasza modyfikacja
 
+## Porównanie reguł macierzy kowariancji
+
+- omówienie benchmarków (kryteria oceny, etc.)
+
 - Porównanie
 
-# Koniec (5p)
+## Koniec (5p)
 
 $$\sum p = 65 $$

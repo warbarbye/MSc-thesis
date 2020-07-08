@@ -10,3 +10,4 @@
 *.run.xml
 *.app
 *.bcf
+/lit

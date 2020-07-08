@@ -1,0 +1,170 @@
+@article{Hansen:2001,
+  author = {Hansen, Nikolaus and Ostermeier, Andreas},
+  title = {Completely Derandomized Self-Adaptation in Evolution Strategies},
+  year = {2001},
+  issue_date = {June 2001},
+  publisher = {MIT Press},
+  address = {Cambridge, MA, USA},
+  volume = {9},
+  number = {2},
+  issn = {1063-6560},
+  url = {https://doi.org/10.1162/106365601750190398},
+  doi = {10.1162/106365601750190398},
+  journal = {Evol. Comput.},
+  month = jun,
+  pages = {159–195},
+  numpages = {37}
+}
+
+@article{Hansen:2016,
+  author    = {Nikolaus Hansen},
+  title     = {The {CMA} Evolution Strategy: {A} Tutorial},
+  journal   = {CoRR},
+  volume    = {abs/1604.00772},
+  year      = {2016},
+  url       = {http://arxiv.org/abs/1604.00772},
+  archivePrefix = {arXiv},
+  eprint    = {1604.00772},
+  timestamp = {Mon, 13 Aug 2018 16:47:37 +0200},
+  biburl    = {https://dblp.org/rec/journals/corr/Hansen16a.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+@Manual{cmaes,
+  title = {cmaes: Covariance Matrix Adapting Evolutionary Strategy},
+  author = {Heike Trautmann and Olaf Mersmann and David Arnu},
+  year = {2011},
+  note = {R package version 1.0-11},
+  url = {http://CRAN.R-project.org/package=cmaes},
+}
+
+@ARTICLE{Arabas17,
+  author = {Arabas, J. and Biedrzycki, R.},
+  journal = {IEEE Trans. Evol. Comput.},
+  title = {Improving evolutionary algorithms in a continuous domain by monitoring the population midpoint},
+  volume    = {21},
+  number    = {5},
+  pages     = {807--812},
+  year      = {2017}
+}
+
+@techreport{cec2013,
+  title = {Problem definitions and evaluation criteria for the {CEC} 2013 special session and competition on real-parameter optimization},
+  author = {Liang, J.J. and Qu, B.Y. and Suganthan, Ponnuthurai N and Hernandez-Diaz, Alfredo G.},
+  institution = {Nanyang Technol. Univ., Singapore and Zhengzhou Univ., China},
+  year = {2013}
+}
+
+@techreport{cec2017,
+  title = {Problem definitions and evaluation criteria for the {CEC} 2017 special session and competition on real-parameter optimization},
+  author = {Awad, N. H. and Ali, M.Z. and Liang, J.J. and Qu, B.Y. and Suganthan, Ponnuthurai N},
+  institution = {Nanyang Technol. Univ., Singapore and Jordan Univ. Sci. Technol. and Zhengzhou Univ., China},
+  year = {2016}
+}
+
+@Manual{R,
+    title = {R: A Language and Environment for Statistical Computing},
+    author = {{R Core Team}},
+    organization = {R Foundation for Statistical Computing},
+    address = {Vienna, Austria},
+    year = {2013},
+    url = {http://www.R-project.org/},
+}
+
+@InProceedings{Hansen:2014,
+  author="Hansen, Nikolaus
+  and Atamna, Asma
+  and Auger, Anne",
+  editor="Bartz-Beielstein, Thomas
+  and Branke, J{\"u}rgen
+  and Filipi{\v{c}}, Bogdan
+  and Smith, Jim",
+  title="How to Assess Step-Size Adaptation Mechanisms in Randomised Search",
+  booktitle="Parallel Problem Solving from Nature -- PPSN XIII",
+  year="2014",
+  publisher="Springer International Publishing",
+  address="Cham",
+  pages="60--69",
+  abstract="Step-size adaptation for randomised search algorithms like evolution strategies is a crucial feature for their performance. The adaptation must, depending on the situation, sustain a large diversity or entertain fast convergence to the desired optimum. The assessment of step-size adaptation mechanisms is therefore non-trivial and often done in too restricted scenarios, possibly only on the sphere function. This paper introduces a (minimal) methodology combined with a practical procedure to conduct a more thorough assessment of the overall population diversity of a randomised search algorithm in different scenarios. We illustrate the methodology on evolution strategies with $\sigma$-self-adaptation, cumulative step-size adaptation and two-point adaptation. For the latter, we introduce a variant that abstains from additional samples by constructing two particular individuals within the given population to decide on the step-size change. We find that results on the sphere function alone can be rather misleading to assess mechanisms to control overall population diversity. The most striking flaws we observe for self-adaptation: on the linear function, the step-size increments are rather small, and on a moderately conditioned ellipsoid function, the adapted step-size is 20 times smaller than optimal.",
+  isbn="978-3-319-10762-2"
+}
+
+@article{Beyer:2002,
+  author = {Beyer, Hans-Georg and Schwefel, Hans-Paul},
+  title = {Evolution Strategies –A Comprehensive Introduction},
+  year = {2002},
+  issue_date = {May 2002},
+  publisher = {Kluwer Academic Publishers},
+  address = {USA},
+  volume = {1},
+  number = {1},
+  issn = {1567-7818},
+  url = {https://doi.org/10.1023/A:1015059928466},
+  doi = {10.1023/A:1015059928466},
+  journal = {Natural Computing: An International Journal},
+  month = may,
+  pages = {3–52},
+  numpages = {50},
+  keywords = {evolutionary computation, computational intelligence, Darwinian evolution, evolution strategies, design principles for genetic operators, optimization}
+}
+
+@InProceedings{Beyer:2008,
+  author="Beyer, Hans-Georg
+  and Sendhoff, Bernhard",
+  editor="Rudolph, G{\"u}nter
+  and Jansen, Thomas
+  and Beume, Nicola
+  and Lucas, Simon
+  and Poloni, Carlo",
+  title="Covariance Matrix Adaptation Revisited -- The CMSA Evolution Strategy --",
+  booktitle="Parallel Problem Solving from Nature -- PPSN X",
+  year="2008",
+  publisher="Springer Berlin Heidelberg",
+  address="Berlin, Heidelberg",
+  pages="123--132",
+  abstract="The covariance matrix adaptation evolution strategy (CMA-ES) rates among the most successful evolutionary algorithms for continuous parameter optimization. Nevertheless, it is plagued with some drawbacks like the complexity of the adaptation process and the reliance on a number of sophisticatedly constructed strategy parameter formulae for which no or little theoretical substantiation is available. Furthermore, the CMA-ES does not work well for large population sizes. In this paper, we propose an alternative -- simpler -- adaptation step of the covariance matrix which is closer to the ``traditional'' mutative self-adaptation. We compare the newly proposed algorithm, which we term the CMSA-ES, with the CMA-ES on a number of different test functions and are able to demonstrate its superiority in particular for large population sizes.",
+  isbn="978-3-540-87700-4"
+}
+
+@book{Eiben:2015,
+  author = {Eiben, A. E. and Smith, James E.},
+  title = {Introduction to Evolutionary Computing},
+  year = {2015},
+  isbn = {3662448734},
+  publisher = {Springer Publishing Company, Incorporated},
+  edition = {2nd}
+}
+
+@book{Nocedal:optim,
+  added-at = {2009-08-21T12:21:08.000+0200},
+  address = {New York, NY},
+  author = {Nocedal, {Jorge} and Wright, {Stephen J.}},
+  biburl = {https://www.bibsonomy.org/bibtex/28a42f1264dbca5b2e10460f70802807e/fbw_hannover},
+  edition = {2. ed.},
+  interhash = {22a7fec4243462045dfaabf3a92ff93f},
+  intrahash = {8a42f1264dbca5b2e10460f70802807e},
+  isbn = {978-0-387-30303-1},
+  keywords = {Mathematical_optimization Mathematische_Optimierung Methoden_und_Techniken_der_Betriebswirtschaft Methoden_und_Techniken_der_Ingenieurwissenschaften Numerische_Mathematik Numerisches_Verfahren Optimierung Theorie},
+  pagetotal = {XXII, 664},
+  ppn_gvk = {502988711},
+  publisher = {Springer},
+  series = {Springer series in operations research and financial engineering},
+  timestamp = {2009-08-21T12:21:09.000+0200},
+  title = {Numerical optimization},
+  url = {http://gso.gbv.de/DB=2.1/CMD?ACT=SRCHA&SRT=YOP&IKT=1016&TRM=ppn+502988711&sourceid=fbw_bibsonomy},
+  year = 2006
+}
+
+@book{Beyer:2001,
+  title = {The Theory of Evolution Strategies},
+  year = {2001},
+  isbn = {3540672974},
+  publisher = {Springer-Verlag},
+  address = {Berlin, Heidelberg}
+}
+
+
+
+
+
+

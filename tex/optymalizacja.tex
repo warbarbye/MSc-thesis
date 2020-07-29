@@ -1,13 +1,15 @@
 \newpage
 \section{Optymalizacja \label{sec:optim}}
 \subsection{Kontekst historyczny \label{subsec:hist}}
-    Poszukiwanie ...
+    Pierwsze analityczne podejścia do optymalizacji można znaleźć w pracach Lagrange'a lub Fermata z XVIII wieku natomiast pierwsze algorytmiczne podejścia pojawiły się ponad wiek wcześniej, bo w pracach Newtone'a, w których podał iteracyjny sposób wyznaczania optimum funkcji. Jednakże systematyczna badania nad zagadnieniami optymalizacyjnymi rozpoczęło się dopiero pod koniec pierwszej połowy XX wieku od pracy G. Dantzig'a poświęconej programowaniu liniowemu. Rozwój teorii optymalizacji jako działu matematyki stosowanej przebiegał w szybkim tempie, co bezpośrednio wynikało z ogromnego potencjału praktycznego tej dziedziny. Zaproponowany przez Dantizg'a algorytm sympleks efektywnie rozwiązywał stawiane przed nim zadania programowania liniowego, lecz stanowiły one niewielki zbiór problemów, z którymi mierzyły się dziedziny inżynierii lub ekonomii. Rozszerzenie zastosowania metod optymalizacji do problemów nieliniowych nastąpiło po publikacji W. Kuhn'a i T. Tucker'a w 1951 roku, która dotyczyła sformułowanych warunków optymalności przez Karush'a jeszcze 5 lat przed pracą Dantzig'a. Znaczący rozwój metod obecnie określanych jako klasycznych trwał do końca lat siedemdziesiątych i zwieńczony został algorytmem BFGS (ang. \textit{Broyden–Fletcher–Goldfarb–Shanno algorithm}). Niezależnie od badań nad klasycznymi metodami optymalizacji pod koniec lat siedemdziesiątych rozpoczęto badania nad algorytmami mimetycznymi, które nawiązywały do mechanizmów ewolucji biologicznej lub fizyki cząstek molekularnych. Ze względu na brak gwarancji rozwiązania zadania optymalizacji metody te często klasyfikowane są jako heurystyki optymalizacyjne. Pod koniec lat dziewięćdziesiątych wraz z pojawieniem się sposobu opisu działania heurystyk abstrahującego od dziedziny problemu zaczęto mówić o metaheurystykach. 
+    Zarówno metody klasyczne jak i nowoczesne znajdują obecnie liczne zastosowania, a ich szczególne znaczenie zauważalne jest w ramach badań nad sztuczną inteligencją, wspomaganiem decyzji czy projektowaniem układów elektronicznych.
 \subsection{Specyfikacja zadania optymalizacji \label{subsec:specOptim}}
 
 Ze względu na zróżnicowanie dziedzin, w których możliwe jest sformułowanie 
 problemu optymalizacji, wygodnie jest przedstawić specyfikację tego problemu na wysokim poziomie abstrakcji. W ogólności zadanie optymalizacji można przedstawić w postaci następującej krotki: 
 
 \begin{equation}
+    \label{eq:opt-problem}
    Opt =  <\mathcal{I}, \mathcal{O}, \preceq_{O}, f, c>
 \end{equation}
 
@@ -42,19 +44,86 @@ Ponadto w powyższej specyfikacji zadanie optymalizacyjne utożsamione zostało 
 Wyprowadzony model zadania optymalizacyjnego w podrozdziale \ref{subsec:specOptim} pozwala 
 myśleć o tym zadaniu jako o abstrakcyjnie typie danych, w którym specyfikacja konkretnych składowych, wyznacza rodzaj zadania optymalizacyjnego. W niniejszym rozdziale zostaną przedstawione i pokrótce opisane najczęściej spotykane typy zadań optymalizacyjnych. \\
 
-\paragraph{Podział ze względu na dziedzinę wejściową}
+\paragraph{Podział ze względu na dziedzinę wejściową \label{para:input}}
 
-W przypadku dziedziny wejściowej $\mathcal{I}$ mówi się o optymalizacji ciągłej, jeśli zbiór ten jest nieprzeliczalny, lub o optymalizacji dyskretnej, jeśli zbiór jest przeliczalny. Ponadto w klasie problemów dyskretnych wprowadza się podział na problemy programowania całkowitoliczbowego (ang. \textit{integer programming}), w których elementy dziedziny wejściowej są tożsame wektorom liczb całkowitych, tj.:
+W przypadku dziedziny wejściowej $\mathcal{I}$ mówi się o optymalizacji ciągłej, jeśli zbiór ten jest nieprzeliczalny, lub o optymalizacji dyskretnej, jeśli zbiór jest przeliczalny. W klasie problemów dyskretnych wprowadza się podział na problemy programowania całkowitoliczbowego (ang. \textit{integer programming}), w których elementy dziedziny wejściowej są tożsame wektorom liczb całkowitych, tj.:
 \begin{equation*}
     \mathcal{I} = \mathbb{Z}^{n},\; n \geq 1.
 \end{equation*}
-
-\paragraph{Podział ze względu na zbiór rozwiązań}
+lub na problemy mieszanego programowania całkowitoliczbowego (ang. \textit{mixed integer programming}), w których na co najmniej jedną zmienną decyzyjną nie jest nałożony warunek bycia liczbą całkowitą. 
+Problemy optymalizacji ciągłej zakładają, że dziedzina wejściowa problemu jest tożsama ze zbiorem liczb rzeczywistych, tj.:
+\begin{equation*}
+    \mathcal{I} = \mathbb{R}^{n},\; n \geq 1.
+\end{equation*}
+Ze względu na możliwość wykorzystania własności ciągłości lub różniczkowalności funkcji celu i tym samym określenia przebiegu funkcji celu w dowolnym otoczeniu każdego elementu $x \mathcal{I}$  problemy te uważane są za łatwiejsze od problemów dyskretnych.
 
 \paragraph{Podział ze względu na funkcję celu}
 
-\paragraph{Podział ze względu na ograniczenia}
+Funkcja celu, tj. relacja przekształcająca elementy dziedziny wejściowej $\mathcal{I}$ na elementy zbioru rozwiązań $\mathcal{O}$, i jej własności stanowi najważniejszy element problemu optymalizacyjnego. W przypadku problemów spotykanych praktycznie postać funkcji celu nie jest określona w sposób bezpośredni i wymagane jest utworzenie jej \textbf{modelu}, co w oczywisty sposób determinuje własności funkcji celu. Z tego względu stosowane są takie modele, których własności w bezpośredni sposób ułatwiają rozwiązanie zadanie optymalizacyjnego. Jednym z najbardziej istotnych atrybutów funkcji celu jest jej wypukłość. Funkcję celu nazywa się wypukłą, gdy spełnia własność zadaną równaniem \ref{convex}.
+
+\begin{equation}
+\label{eq:convex}
+    \forall{x_1, x_2 \in \mathcal{I}}\forall{\alpha \in [0, 1]}
+    f(\alpha x_{1} + (1 - \alpha)x_{2}) \leq f(\alpha x_{1}) + (1 - \alpha)f(x_{2})
+\end{equation}
+
+Z własności \ref{eq:convex} wynika fakt, że wszystkie minima lokalne tej funkcji równe są minimum globalnemu. Wypukłość ma istotne znaczenie w przypadku problemów wielomodalnych, tj. funkcji celu, w których możliwe jest określenie minimum lokalnego w co najmniej dwóch różnych punktach dziedziny wejściowej. Wówczas znalezienie dowolnego punktu minimum lokalnego tożsame jest z rozwiązaniem zadania optymalizacji w sposób globalny. Inną, często przyjmowaną własnością, jest wspomniana we wcześniejszym paragrafie \ref{para:input} gładkość funkcji celu. Umożliwia ona zastosowanie gradientowych metod optymalizacji, które mogą być również rozszerzone o zastosowanie macierzy hesjanu lub jego aproksymacji w celu identyfikacji punktów siodłowych. Rzadziej rozpatrywaną własnością tempo zmian funkcji celu, które często zakłada się co najwyżej liniowe co sprowadza się do spełnienia warunku Lipschitz'a z pewną stałą $L > 0$ wyrażonego równaniem (\ref{eq:lip}). 
+
+\begin{equation}
+    \label{eq:lip}
+    |f(x) - f(x_{0})| = L|x - x_{0}|
+\end{equation}
+
+Jednakże problemy praktyczne nie wyczerpują klasy problemów optymalizacyjnych w ogóle. Istotną podklasę stanowią również sztuczne problemy optymalizacyjne, które służą do testowania algorytmów rozwiązujących je. Zagadnieniu temu poświęcony jest osobny rozdział, w którym zostanie omówiony szczegółowo proces testowania. Warto jednak wyodrębnić atrybuty funkcji celu, na które kładziony jest nacisk w tej podklasie. \\
+Szczególna uwaga poświęcona jest własności separowalności funkcji celu. W pełni separowalną funkcję celu nazywa się funkcję, która spełnia poniższy warunek (\ref{eq:sep}):
+
+\begin{equation}
+    \label{eq:sep}
+    argmin f(x) = (argmin f(x_{1}), \dots, argmin f(x_{n})).
+\end{equation}
+
+Własność ta oznacza, że funkcja celu daje rozłożyć się na $n$ niezależnych jednowymiarowych zadań optymalizacyjnych, których rozwiązanie składa się na $n$-wymiarowe zadanie wyjściowe.
+
+Wśród pozostałych typów zadań optymalizacyjnych wyróżnia się również problemy z ograniczeniami lub bez nich. Dla zadań bez ograniczeń predykat (\ref{opt-pred}) jest prawdziwy dla każdego elementu z dziedziny $\mathcal{I}$. Podział ze względu na dziedzinę wyjściową $\mathcal{O}$ dotyczy najczęściej liczby poszukiwanych optimów i jeśli jest ich więcej niż jedno, to mówi się o wielokryterialnym problemie optymalizacyjnym, w którym $\mathcal{O}$ jest zbiorem wielowymiarowym. W ramach niniejszej pracy rozważane będą wyłącznie problemy jednokryterialne, w których zbiór rozwiązań tożsamy jest ze zbiorem $\mathbb{R}$.
+
+Na rysunku \ref{fig:optim-taks} przedstawiona jest taksonomia problemów optymalizacyjnych ze względu na omówione kryteria. 
+
+\begin{figure}
+    \centering
+    \includegraphics{}
+    \caption{Podział problemów optymalizacyjnych.}
+    \label{fig:optim-taks}
+\end{figure}
+
 
 \subsection{Algorytm optymalizacyjny \label{subsec:optim-alg}}
 
-\subsection{Taksonomia algorytmów optymalizacyjnych \label{subsec:optim-alg-takson}}
+Procedurę, która rozwiązuje problem (\ref{eq:opt-problem}), nazywa się algorytmem optymalizacyjnym. Podział algorytmów optymalizacyjnych jest równie bogaty co podział samych problemów optymalizacyjnych, ale istnieje szereg wspólnych własności, które pozwalają opisać je na wysokim poziomie abstrakcji. \\
+Algorytmy optymalizacyjne są procedurami iteracyjnymi, które przeszukiwanie dziedziny wejściowej $\mathcal{I}$ rozpoczynają od punktu początkowego $x_0$ lub, w przypadku algorytmów \textbf{populacyjnych} -- od zbioru punktów początkowych $P_0$. Każdy algorytm wyposażony jest w procedurę $\Pi$, która odpowiada za utworzenie punktu lub punktów pochodnych na podstawie punktów bazowych i wartości funkcji celu, którą punkty te osiągnęły w poprzedniej iteracji, oraz specyficznej dla siebie logiki. Ponadto w skład procedury optymalizacyjnej wchodzą kryteria stopu $\kappa$ oraz zbiór parametrów sterujących $\Sigma$ procedurą $\Pi$. Podsumowując, algorytm optymalizacyjny może zostać opisany następującą krotką:
+
+\begin{align*}
+ AlgOpt &:= \left( X_0, \Pi, \kappa, \Sigma \right) \\
+ \Pi\colon\; & \left(X_i, Opt.f, \Sigma, \right) \rightarrow X_{i+1}
+\end{align*}
+    
+
+
+
+Różnorodność algorytmów optymalizacyjnych wynika przede wszystkim z różnic w działaniu wewnętrznej logiki tych algorytmów. Wymienienie i opisanie występujących podejść znacznie przekracza ramy tej pracy, więc w dalszej części tekstu znajduje się powierzchowne omówienie głównych ich typów.
+Często spotykanym podziałem klasy metod optymalizacyjnych jest ich podział na algorytmy bazujące na różniczkowaniu funkcji celu oraz algorytmy wolne od różniczkowania (ang. \textit{derivative-free}). W pierwszym przypadku w ramach procedury $\Pi$ wykorzystywane są pochodne pierwszego lub drugiego rzędu w celu wyznaczenia punktów pochodnych. Dla jednego z najprostszych koncepcyjnie algorytmów gradientowych, tj. dla metody gradientu prostego, procedura ta przyjmuje następująca postać:
+
+\begin{equation*}
+    \Pi\colon\; \wek{x}_{i+1} \leftarrow \wek{x}_{i} - \eta \nabla f(\wek{x}_{i})
+\end{equation*}
+
+przy czym $\eta \in \Sigma$ jest współczynnikiem długości kolejnego kroku algorytmu. Innym punktem podziału metod optymalizacyjnych jest fakt czy działają one w sposób deterministyczny czy wykorzystują losowość w ramach poszukiwania optimum. Sam sposób przeszukiwania przestrzeni również stanowi punkt podziału. Przykładowo w jego ramach wyróżnia się algorytmy bazujące na przeszukiwaniu liniowym (ang. \textit{line search}) lub obszarowym (ang. \textit{trust region}). 
+Wyczerpujący podział algorytmów optymalizacyjnych znajduje się na rysunku \ref{fig:alg-task}.
+
+\begin{figure}
+    \centering
+    \includegraphics{}
+    \caption{Podział algorytmów optymalizacyjnych.}
+    \label{fig:alg-task}
+\end{figure}
+
+Należy dodać, że niezależnie od sposobu działania algorytmu optymalizacyjnego stawiane wymagania są podobne. Najczęściej od metod tych wymaga się szybkiego tempa zbieżności, niskiej złożoności obliczeniowej i pamięciowej oraz niezmienniczości ze względu na przekształcenia funkcji celu. Nietrudno zauważyć, że często te wymagania będą wzajemnie wykluczać się lub nawet przyczyniać się do pogorszenia jakości działania algorytmów. Zauważalne jest to szczególnie w przypadku ich tempa zbieżności, które zbyt duże może prowadzić do przedwczesnej zbieżności, tj. utykania w basenach optimów lokalnych. Często stawianym wymogiem jest również analityczny dowód zbieżności, który w przypadku wielu metod stochastycznych nie jest możliwy sformułowania poza przypadkiem asymptotycznym. 

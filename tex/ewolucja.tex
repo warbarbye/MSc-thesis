@@ -1,0 +1,68 @@
+\newpage
+\section{Obliczenia ewolucyjne}
+\label{sec:ewol}
+\subsection{Metafora biologiczna}
+
+    Obliczenia ewolucyjne należą do licznej rodziny algorytmów mimetycznych i bazują na
+    procesie ewolucji biologicznej, która została po raz pierwszy wyrażona przez Ch. Darwina w XIX wieku {source}. Z tego względu w celu pełnego zrozumienia logiki tych algorytmów warte wydaje się wprowadzenie i zdefiniowanie podstawowych pojęć, które stosuje ta dziedzina. 
+    Nie jest to bynajmniej konieczne. Część badaczy przyjmuje nomenklaturę biologii ewolucyjnej jedynie za pewną konwencję notacyjną, traktując algorytmy ewolucyjne jako instancje metod przeszukiwania losowego {source}. Pogląd taki wydaje się uzasadniony, gdy zwróci się uwagę na fakt, że obliczenia ewolucyjne poświęcone są optymalizacji w rozumieniu tego pojęcia zgodnie z definicją podaną w rozdziale \ref{sec:optim}, a procesy ewolucyjne -- adaptacji {source}.
+    Ponadto wraz z pojawieniem się i popularyzacją pojęcia \textit{metaheurystyk} bazowanie wyłącznie na nośnej hipotezie przyczyniło się do powstania wielu redundantnych heurystyk optymalizacyjnych i badań im poświęconych {source}.
+    W związku z powyższym zdefiniowane poniżej pojęcia nie powinny być traktowane jako ścisłe odpowiedniki pojęć biologii ewolucyjnej, a jako wspólna i luźno powiązana baza pojęciowa różnych paradygmatów obliczeń ewolucyjnych.
+    
+\subsection{Algorytm ewolucyjny}
+
+    Podobnie jak w rozdziale {source} algorytm ewolucyjny może zostać sformułowany na wysokim poziomie abstrakcji i stanowi on specyfikację algorytmu optymalizacyjnego $AlgOpt$. W nawiązaniu do analogii biologicznej punkt lub zbiór punktów startowych $X_0$ będzie tożsamy \textbf{populacji} początkowej $P_0$. Populacja składa się z \texbf{osobników bazowych}, które zostają poddane co najmniej jednemu operatorowi wariacyjnemu, tj. operatorowi mutacji $\Pi_{m}$ lub rekombinacji $\Pi_{r}$. Wynikiem działania tych operatorów jest zbiór \textbf{osobników potomnych}, który oznaczany jest symbolem $O_{t}$, gdzie $t$ jest licznikiem \textbf{pokolenia}. Następnie zbiór $O_{t}$ jest poddawany działaniu operatora selekcji $\Pi_{s}$, który na podstawie \textbf{przystosowania} wybiera osobniki, które utworzą nową populację osobników bazowych $P_{t+1}$. Iteracyjny proces ewolucji podobnie jak każdy algorytm optymalizacyjny sterowany jest przez zbiór parametrów $\Sigma$, który
+    ze względu na mnogość stosowanych operatorów oraz charakter samych parametrów może zostać podzielony na dwa rozłączne zbiory -- zbiór parametrów wewnętrznych $\Sigma_{en}$ (ang. \textit{endogenous parameters}) oraz zbiór parametrów zewnętrznych $\Sigma_{ex}$ (ang. \textit{exogenous parameters}). Pierwszy z nich składa się z parametrów algorytmu, które zostają poddane procesowi ewolucji w ramach mechanizmu \textbf{samoadaptacji}, a drugi zawiera te parametry, które są stałe w trakcie działania algorytmu. 
+    Innymi słowy, algorytm ewolucyjny może zostać przedstawiony jako następująca krotka:
+    
+    \begin{equation}
+         EvolAlgOpt & := \left(P_0, \Pi_s, \Pi_v,  \kappa, \Sigma_s, \Sigma_{v} \right) \\
+    \end{equation}
+    w której:
+    \begin{align*}
+         \Pi_{v}:\; &  (P, \Sigma_{v}) \rightarrow O \\
+         \Pi_{s}:\; &  (O, \Sigma_{s}) \rightarrow P \\
+         \Sigma & = \Sigma_{v} \cup \Sigma_{s} \\
+         \Pi & = \Pi_{v} \cup \Pi_{s}. \\
+    \end{align*}
+    
+Natomiast sama logika działania algorytmu przebiega z następującym schematem: 
+
+\begin{algorithm}[h]
+\caption{CMA-ES}
+\label{alg-CMA-ES}
+\begin{algorithmic}[1]
+\STATE $t \gets 1$
+\STATE initialize$(\wek{m}^1,\sigma^1, C^1)$
+\STATE $\wek{p}_c^1 \gets \wek{0}$, $\wek{p}_\sigma^1 \gets \wek{0}$
+\WHILE{!stop}
+   \FOR{$i=1$ \TO $\lambda$}
+      \STATE $ \wek{d}_i^t \sim N(\wek{0}, \mat{C}^t) $
+      \STATE $\wek{x}_i^t=\wek{m}^{t} + \sigma^t \wek{d}_i^t $
+      \STATE evaluate $(\wek{x}_i^t)$
+   \ENDFOR
+   \STATE sort $ \left(\{ \wek{x}_i^t \} \right) $
+  
+   \STATE $\wek{\Delta}^{t} \gets \sum_{i=1}^\mu w_i \wek{d}_i^t $
+   \STATE $\wek{m}^{t+1} \gets \wek{m}^{t+1} + \sigma^t \wek{\Delta}^{t} $
+   \STATE $\wek{p}_c^{t+1} \gets (1-c_p)\wek{p}_c^t + \sqrt{\mu_\text{eff} c_p(2-c_p)} \cdot \wek{\Delta}^{t}$ where \newline
+          $\qquad \mu_\text{eff}=1/\left(\sum_{i=1}^\mu (w_i)^2\right)$
+   \STATE $\mat{C}^{t+1} \gets (1-c_1-c_\mu)\mat{C}^t + c_1 \mat{C}^t_1 + c_\mu  \mat{C}^t_\mu$ where \newline
+$\qquad \mat{C}_\mu^t=\frac{1}{\mu_\text{eff}}\sum_{i=1}^\mu w_i(\wek{d}_i^t)(\wek{d}_i^t)^\tran$, \newline
+$\qquad \mat{C}_1^t=(\wek{p}_c^t)(\wek{p}_c^t)^\tran$
+
+   \STATE $\sigma^{t+1} \gets $ CSA $(\sigma^t, \mat{C}^{t}, \wek{\Delta}^{t})$ 
+      
+   \STATE $t \gets t+1$
+\ENDWHILE
+
+\end{algorithmic}
+\end{algorithm}
+
+
+
+
+\subsection{Paradygmaty obliczeń ewolucyjnych}
+\subsection{Strategie ewolucyjne}
+
+

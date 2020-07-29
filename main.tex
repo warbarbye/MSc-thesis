@@ -10,6 +10,16 @@
 \graphicspath{{img/}}            
 \addbibresource{biblio.bib} 
 
+
+\usepackage{psfrag}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+
+\newcommand{\source}[0]{
+ \textcolor{red}{[source]}
+}
+
+
 \begin{document}
 
 %% TITLE PAGE 
@@ -36,8 +46,8 @@
 %% ABSTRACTS
 
 \streszczenie 
-  abstract pl
-\slowakluczowe XXX, XXX, XXX
+  Adaptacja zasięgu mutacji w strategiach ewolucyjnych jest kluczowym mechanizmem ich efektywnego działania.    
+\slowakluczowe Strategie ewolucyjne, optymalizacja, reguła $\frac{1}{5}$, CMA-ES.
 \newpage
 \abstract 
   abstract eng
@@ -57,10 +67,10 @@
 
 \input{tex/intro}
 \input{tex/optymalizacja}
-\input{tex/metaheurystyki}
-\input{tex/zasieg}
-\input{tex/modyfikacja}
-\input{tex/porownanie}
+\input{tex/ewolucja}
+\input{tex/samoadaptacja}
+\input{tex/regula}
+\input{tex/eksperymenty}
 \input{tex/koniec}
 \cleardoublepage 
 

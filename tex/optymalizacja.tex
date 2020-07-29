@@ -1,7 +1,13 @@
 \newpage
 \section{Optymalizacja \label{sec:optim}}
 \subsection{Kontekst historyczny \label{subsec:hist}}
-    Pierwsze analityczne podejścia do optymalizacji można znaleźć w pracach Lagrange'a lub Fermata z XVIII wieku natomiast pierwsze algorytmiczne podejścia pojawiły się ponad wiek wcześniej, bo w pracach Newtone'a, w których podał iteracyjny sposób wyznaczania optimum funkcji. Jednakże systematyczna badania nad zagadnieniami optymalizacyjnymi rozpoczęło się dopiero pod koniec pierwszej połowy XX wieku od pracy G. Dantzig'a poświęconej programowaniu liniowemu. Rozwój teorii optymalizacji jako działu matematyki stosowanej przebiegał w szybkim tempie, co bezpośrednio wynikało z ogromnego potencjału praktycznego tej dziedziny. Zaproponowany przez Dantizg'a algorytm sympleks efektywnie rozwiązywał stawiane przed nim zadania programowania liniowego, lecz stanowiły one niewielki zbiór problemów, z którymi mierzyły się dziedziny inżynierii lub ekonomii. Rozszerzenie zastosowania metod optymalizacji do problemów nieliniowych nastąpiło po publikacji W. Kuhn'a i T. Tucker'a w 1951 roku, która dotyczyła sformułowanych warunków optymalności przez Karush'a jeszcze 5 lat przed pracą Dantzig'a. Znaczący rozwój metod obecnie określanych jako klasycznych trwał do końca lat siedemdziesiątych i zwieńczony został algorytmem BFGS (ang. \textit{Broyden–Fletcher–Goldfarb–Shanno algorithm}). Niezależnie od badań nad klasycznymi metodami optymalizacji pod koniec lat siedemdziesiątych rozpoczęto badania nad algorytmami mimetycznymi, które nawiązywały do mechanizmów ewolucji biologicznej lub fizyki cząstek molekularnych. Ze względu na brak gwarancji rozwiązania zadania optymalizacji metody te często klasyfikowane są jako heurystyki optymalizacyjne. Pod koniec lat dziewięćdziesiątych wraz z pojawieniem się sposobu opisu działania heurystyk abstrahującego od dziedziny problemu zaczęto mówić o metaheurystykach. 
+    Pierwsze analityczne podejścia do optymalizacji można znaleźć w pracach Lagrange'a lub Fermata z XVIII wieku natomiast pierwsze algorytmiczne podejścia pojawiły się ponad wiek wcześniej, bo w pracach Newtone'a, w których podał iteracyjny sposób wyznaczania optimum funkcji. Jednakże systematyczna badania nad zagadnieniami optymalizacyjnymi rozpoczęło się dopiero pod koniec pierwszej połowy XX wieku od pracy G. Dantzig'a poświęconej programowaniu liniowemu. Rozwój teorii optymalizacji jako działu matematyki stosowanej przebiegał w szybkim tempie, co bezpośrednio wynikało z ogromnego potencjału praktycznego tej dziedziny. Zaproponowany przez Dantizg'a algorytm sympleks efektywnie rozwiązywał stawiane przed nim zadania programowania liniowego, lecz stanowiły one niewielki zbiór problemów, z którymi mierzyły się dziedziny inżynierii lub ekonomii. Rozszerzenie zastosowania metod optymalizacji do problemów nieliniowych nastąpiło po publikacji W. Kuhn'a i T. Tucker'a w 1951 roku, która dotyczyła sformułowanych warunków optymalności przez Karush'a jeszcze 5 lat przed pracą Dantzig'a. Znaczący rozwój metod obecnie określanych jako klasycznych trwał do końca lat siedemdziesiątych i zwieńczony został algorytmem BFGS (ang. \textit{Broyden–Fletcher–Goldfarb–Shanno algorithm}). Niezależnie od badań nad klasycznymi metodami optymalizacji pod koniec lat siedemdziesiątych rozpoczęto badania nad algorytmami mimetycznymi, które nawiązywały do mechanizmów ewolucji biologicznej lub fizyki cząstek molekularnych. Ze względu na brak gwarancji rozwiązania zadania optymalizacji metody te często klasyfikowane są jako heurystyki optymalizacyjne. Pod koniec lat dziewięćdziesiątych wraz z pojawieniem się sposobu opisu działania heurystyk abstrahującego od dziedziny problemu zaczęto mówić o metaheurystykach. Na rysunku \ref{fig:opt-timeline} przedstawiona jest oś czasu, na której zaznaczone są istotne zdarzenia dotyczące teorii i zastosowań optymalizacji.
+    \begin{figure}
+        \centering
+        \includegraphics{}
+        \caption{Oś czasu.}
+        \label{fig:opt-timeline}
+    \end{figure}
     Zarówno metody klasyczne jak i nowoczesne znajdują obecnie liczne zastosowania, a ich szczególne znaczenie zauważalne jest w ramach badań nad sztuczną inteligencją, wspomaganiem decyzji czy projektowaniem układów elektronicznych.
 \subsection{Specyfikacja zadania optymalizacji \label{subsec:specOptim}}
 
@@ -98,18 +104,15 @@ Na rysunku \ref{fig:optim-taks} przedstawiona jest taksonomia problemów optymal
 
 \subsection{Algorytm optymalizacyjny \label{subsec:optim-alg}}
 
+\subsubsection{Specyfikacja algorytmu optymalizacyjnego}
 Procedurę, która rozwiązuje problem (\ref{eq:opt-problem}), nazywa się algorytmem optymalizacyjnym. Podział algorytmów optymalizacyjnych jest równie bogaty co podział samych problemów optymalizacyjnych, ale istnieje szereg wspólnych własności, które pozwalają opisać je na wysokim poziomie abstrakcji. \\
 Algorytmy optymalizacyjne są procedurami iteracyjnymi, które przeszukiwanie dziedziny wejściowej $\mathcal{I}$ rozpoczynają od punktu początkowego $x_0$ lub, w przypadku algorytmów \textbf{populacyjnych} -- od zbioru punktów początkowych $P_0$. Każdy algorytm wyposażony jest w procedurę $\Pi$, która odpowiada za utworzenie punktu lub punktów pochodnych na podstawie punktów bazowych i wartości funkcji celu, którą punkty te osiągnęły w poprzedniej iteracji, oraz specyficznej dla siebie logiki. Ponadto w skład procedury optymalizacyjnej wchodzą kryteria stopu $\kappa$ oraz zbiór parametrów sterujących $\Sigma$ procedurą $\Pi$. Podsumowując, algorytm optymalizacyjny może zostać opisany następującą krotką:
-
 \begin{align*}
  AlgOpt &:= \left( X_0, \Pi, \kappa, \Sigma \right) \\
  \Pi\colon\; & \left(X_i, Opt.f, \Sigma, \right) \rightarrow X_{i+1}
 \end{align*}
-    
-
-
-
 Różnorodność algorytmów optymalizacyjnych wynika przede wszystkim z różnic w działaniu wewnętrznej logiki tych algorytmów. Wymienienie i opisanie występujących podejść znacznie przekracza ramy tej pracy, więc w dalszej części tekstu znajduje się powierzchowne omówienie głównych ich typów.
+\subsubsection{Taksonomia algorytmów optymalizacyjnych}
 Często spotykanym podziałem klasy metod optymalizacyjnych jest ich podział na algorytmy bazujące na różniczkowaniu funkcji celu oraz algorytmy wolne od różniczkowania (ang. \textit{derivative-free}). W pierwszym przypadku w ramach procedury $\Pi$ wykorzystywane są pochodne pierwszego lub drugiego rzędu w celu wyznaczenia punktów pochodnych. Dla jednego z najprostszych koncepcyjnie algorytmów gradientowych, tj. dla metody gradientu prostego, procedura ta przyjmuje następująca postać:
 
 \begin{equation*}

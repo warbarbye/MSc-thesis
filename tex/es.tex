@@ -3,16 +3,17 @@
 \section{Strategie ewolucyjne}
 \subsection{Wprowadzenie do strategii ewolucyjnych}
 
-    Pierwotnie paradygmat ten nie był poświęcony zadaniom optymalizacji statycznej, tj. poszukiwaniu optimum pewnej funkcji, a stanowił pewną metodykę automatycznego projektowania oraz analizy eksperymentów dotyczących optymalnego działania obiektów w ramach pewnego otoczenia \source. 
+    Pierwotnie paradygmat ten nie był poświęcony problemom optymalizacji statycznej, lecz stanowił pewną metodykę automatycznego projektowania oraz analizy eksperymentów dotyczących optymalnego działania obiektów w ramach pewnego otoczenia \cite{Rechenberg:1965}. 
     Ewolucja tych obiektów w trakcie trwania symulacji polegała na jednoczesnej zmianie wszystkich zmiennych opisujących obiekt w sposób losowy i podjęciu decyzji o zachowaniu lub zaniechaniu wprowadzonych zmian w zależności od zmiany oceny jakości jego działania. W związku z tym pierwsze warianty strategii ewolucyjnych przypominały raczej metody wzrostu stochastycznego niż algorytmy, których logika bazowała na mechanizmach ewolucji darwinowskiej. 
-    Wraz ze wzrostem zainteresowania w obszarze badań operacyjnych w dziedzinach inżynierii na początku lat 70 XX wieku rosło zainteresowanie metodami optymalizacji statycznej. Doprowadziło to autorów paradygmatu, tj. Schwefel'a oraz Rechenberg'a, do dostosowania strategii ewolucyjnych do problemu poszukiwania optimum funkcji liczbowych. Pierwszą dokładnie opisaną oraz zbadaną strategią ewolucyjną była strategia $(1+1)$-ES, która jako operator wariacyjny wykorzystywała wyłącznie mutacje opartą o rozkład normalny, a jej populacja bazowa oraz potomna składała się z jednego osobnika \source. Późniejsze badania strategii ewolucyjnych dotyczyły rozszerzenia populacji bazowej i potomnej na większą liczbę osobników oraz cechy, która odróżniała ten paradygmat od pozostałych, tj. samoadaptacji parametrów sterujących  algorytmem \source. Wraz z pojawieniem się wersji algorytmu, w których populacja bazowa składa się z $\mu \geq 2$, a populacja potomna z $\lambda \geq 2$ osobników, zaistniała potrzeba rozróżnienia działania danych strategii ewolucyjnych w zależności od typu selekcji oraz rekombinacji. Do odróżnienia działania algorytmów wprowadzono notację: 
+    Wraz ze wzrostem zainteresowania w obszarze badań operacyjnych w dziedzinach inżynierii na początku lat 70 XX wieku rosło zainteresowanie metodami optymalizacji statycznej. Doprowadziło to autorów paradygmatu, tj. Schwefel'a oraz Rechenberg'a, do dostosowania strategii ewolucyjnych do problemu poszukiwania optimum funkcji liczbowych. Pierwszą dokładnie opisaną oraz zbadaną strategią ewolucyjną była strategia $(1+1)$-ES, która do realizacji operatora wariacyjnego wykorzystywała wyłącznie mutacje opartą o rozkład normalny, a jej populacja bazowa oraz potomna składała się tylko z jednego osobnika \cite{Rechenberg:1973}. Późniejsze badania strategii ewolucyjnych dotyczyły rozszerzenia populacji bazowej i potomnej na większą liczbę osobników oraz cechy, która odróżniała ten paradygmat od pozostałych, tj. samoadaptacji parametrów sterujących  algorytmem \cite{Beyer:2002}. \\ 
+    Wraz z pojawieniem się algorytmów, w których populacja bazowa składa się z $\mu \geq 2$, a populacja potomna z $\lambda \geq 2$ osobników, zaistniała potrzeba rozróżnienia wariantów strategii ewolucyjnych w zależności od typu selekcji oraz rekombinacji. Do odróżnienia działania algorytmów wprowadzono notację: 
     
     \begin{equation}
      (\mu/\rho  \overset{+}{,} \lambda).
     \end{equation}
-    W zapisie tym symbol $\rho$ oznacza liczbę osobników, które biorą udział w procesie rekombinacji, a symbole $+$ i $,$ determinują typ selekcji. W pierwszym przypadku do populacji w kolejnej generacji wybierane są osobniki z populacji, na którą składa się $\mu$ osobników bazowych oraz $\lambda$ osobników potomnych, a strategia ewolucyjna jest oznaczana jako $(\mu/\rho + \lambda)$. W przypadku drugim -- populacja kolejnej generacji tworzona jest wyłącznie z $\lambda$ osobników potomnych, co implikuje fakt, że $\lambda \geq \mu$, a strategia ewolucyjna jest oznaczana jako  $(\mu/\rho, \lambda)$.
-    Strategie ewolucyjne mogą być dostosowane do różnych typów dziedzin wejściowych -- zarówno dla problemów, które wymagają reprezentacji binarnej jak i całkowitoliczbowej. Jednakże ze względu na fakt, że większość badań i algorytmów strategii ewolucyjnych poświęconych jest przestrzeniom ciągłym, a nie dyskretnym, w dalszej części tekstu rozważana będzie wyłącznie reprezentacja oparta o wektory liczb rzeczywistych. Niemniej jednak pewne własności operatora mutacji opisywane w podrozdziale \ref{subsubsec:es-op-mut} czy zbieżności i jej miary, którym poświęcony jest podrozdział \ref{subsubsec:es-conv}, są uniwersalne i dotyczą strategii ewolucyjnych niezależnie przyjętej reprezentacji. 
-    Ze względu na brak teoretycznych podstaw działania operatora krzyżowania, które wyjaśniałyby jego wpływ na jakość działania, oraz wyniki badań empirycznych, z których wynika niewielki wpływ tego operatora na jakość działania algorytmu \source, strategie ewolucyjne nie korzystają z krzyżowania w rozumieniu paradygmatu ewolucji różnicowej czy algorytmów genetycznych. Forma rekombinacji, która jest stosowana w strategiach ewolucyjnych, to tzw. rekombinacja pośrednia (ang. \textit{intermediate recombination}) i przyjmuje ona następującą postać:
+    W zapisie tym symbol $\rho$ oznacza liczbę osobników, które biorą udział w procesie rekombinacji, a symbole $+$ i $,$ determinują typ selekcji. W pierwszym przypadku do populacji potomnej w kolejnej iteracji algorytmu wybierane są osobniki z populacji, na którą składa się $\mu$ osobników bazowych oraz $\lambda$ osobników potomnych, a strategia ewolucyjna jest oznaczana jako $(\mu/\rho + \lambda)$. W przypadku drugim -- populacja potomna kolejnej generacji tworzona jest wyłącznie z $\lambda$ osobników potomnych, co implikuje fakt, że $\lambda \geq \mu$, a strategia ewolucyjna jest oznaczana jako  $(\mu/\rho, \lambda)$. \\
+    Strategie ewolucyjne mogą być dostosowane do różnych typów dziedzin wejściowych -- zarówno dla problemów, które wymagają reprezentacji binarnej jak i całkowitoliczbowej. Jednakże ze względu na fakt, że większość badań i algorytmów strategii ewolucyjnych poświęconych jest przestrzeniom ciągłym, a nie dyskretnym, w dalszej części tekstu rozważana będzie wyłącznie reprezentacja oparta o wektory liczb rzeczywistych. Niemniej jednak pewne własności operatora mutacji opisywane w podrozdziale \ref{subsubsec:es-op-mut} są uniwersalne oraz dotyczą strategii ewolucyjnych niezależnie przyjętej reprezentacji. \\
+    Ze względu na brak teoretycznych podstaw działania operatora krzyżowania, które wyjaśniałyby jego wpływ na jakość działania, oraz wyniki badań empirycznych, z których wynika niewielki wpływ tego operatora na jakość działania algorytmu \cite{Fogel:1994}, strategie ewolucyjne nie korzystają z krzyżowania w rozumieniu paradygmatu ewolucji różnicowej czy algorytmów genetycznych. Forma rekombinacji, która jest stosowana w strategiach ewolucyjnych, to tzw. rekombinacja pośrednia (ang. \textit{intermediate recombination}) i przyjmuje ona następującą postać:
     \begin{equation}
         \label{eq:es-rec}
         \bar{x} = \left<x\right>_{\rho} = \frac{1}{\rho}\sum^{\rho}_{i = 1} x_{i}.
@@ -22,11 +23,8 @@
     \begin{equation}
         \bar{x} = \left<x\right>_{\mu; w} = \sum^{\mu}_{i = 1} w_{i}x_{i:\lambda}
     \end{equation}
-    gdzie oznaczenie $x_{i:\lambda}$ jest równoważne $i$-tej statystyce pozycyjnej rosnąco uporządkowanej próby. Produkt rekombinacji $\bar{x}$ najczęściej wykorzystywany jest jako środek rozkładu normalnego, który służy do losowania nowych osobników. Sposób wyznaczenia optymalnych wartości wag opisany jest w \source.
-    W obu wariantach selekcji, tj. $(\mu + \lambda)$ i $(\mu, \lambda)$, stosowana jest w pełni deterministyczna selekcja elitarna, w której do następnej generacji przechodzi wyłącznie $\mu$ najlepszych osobników.  Wybór wariantu selekcji jest zależny od typu dziedziny wejściowej problemu, który algorytm ma rozwiązać. Na podstawie badań dla problemów w przestrzeniach ciągłych stwierdzono, że wariant $(\mu, \lambda)$ osiąga lepsze rezultaty od wariantu  $(\mu + \lambda)$.
-    
-    Schemat działania strategii ewolucyjnych przedstawiony jest na wydruku \ref{alg:es-schemat}.
-
+    gdzie oznaczenie $x_{i:\lambda}$ jest równoważne $i$-tej statystyce pozycyjnej rosnąco uporządkowanej próby. Produkt rekombinacji $\bar{x}$ najczęściej wykorzystywany jest jako środek rozkładu normalnego, który służy do losowania nowych osobników. Sposób wyznaczenia optymalnych wartości wag dla pewnych modeli funkcji celu opisany jest w \cite{Chun:2018}.
+    W obu wariantach selekcji osobników, tj. $(\mu + \lambda)$ i $(\mu, \lambda)$, stosowana jest w pełni deterministyczna selekcja elitarna, w której do następnej generacji przechodzi wyłącznie $\mu$ najlepszych osobników.  Wybór wariantu selekcji jest zależny od typu dziedziny wejściowej problemu, który algorytm ma rozwiązać. Na podstawie badań empirycznych dla problemów w przestrzeniach ciągłych stwierdzono, że wariant $(\mu, \lambda)$ osiąga lepsze rezultaty od wariantu  $(\mu + \lambda)$ \cite{Beyer:1992}, \cite{Schwefel:1987}. Schemat działania strategii ewolucyjnych przedstawiony jest na wydruku \ref{alg:es-schemat}. Operator mutacji oraz mechanizm samoadaptacji ze względu na złożoność i znaczenie w ramach działania strategii ewolucyjnych omówione są w oddzielnych podrozdziałach, tj. \ref{subsubsec:es-conv} oraz \ref{subsubsec:es-autoadapt}.
     \begin{algorithm}[h]
     \caption{Schemat działania algorytmu ewolucyjnego.}
     \label{alg:es-schemat}
@@ -49,24 +47,17 @@
     \end{algorithmic}
     \end{algorithm}
     
-    Operator mutacji oraz mechanizm samoadaptacji ze względu na złożoność i znaczenie w ramach działania strategii ewolucyjnych omówione są w oddzielnych podrozdziałach, tj. \ref{subsubsec:es-conv} oraz \ref{subsubsec:es-autoadapt}.
-    
-    \newpage
-
 \subsection{Własności strategii ewolucyjnych}
 \label{subsubsec:es-op-mut}
-
 \subsubsection{Operator mutacji}
 \label{subsubsec:es-conv}
-
-    Głównym źródłem różnorodności w strategiach ewolucyjnych jest operator mutacji. Z tego względu jego odpowiednia implementacja jest kluczowa w kontekście pożądanej jakości działania algorytmu. W związku z faktem, że działanie operatora mutacji jest zależne od
-    domeny wejściowej problemu, istotne jest, aby realizacja operatora mutacji spełniała pewne uniwersalne wymagania. Do tej pory takie zasady zostały sformułowane wyłącznie przez Beyer'a w \source i w dużej mierze dotyczą one własności rozkładu prawdopodobieństwa operatora mutacji. Jednym z założeń jest własność \textbf{osiągalności} (ang. \textit{reachability}), która polega na tym, aby przy pomocy mutacji każdy punkt przestrzeni przeszukiwań $I$ dało osiągnąć się z pewnego stanu początkowego w skończonym czasie działania algorytmu. Wymaganie to można sprowadzić do tego, aby nośnik funkcji gęstości prawdopodobieństwa, która służy do utworzenia zaburzenia losowego w mutacji, był tożsamy przestrzeni przeszukiwań. Innymi słowy, zakładając, że $d$ oznacza wektor zaburzeń losowych, które pochodzą z rozkładu $P_{\theta}$ wymaga się, aby zachodziła następują relacja:
+    Głównym źródłem różnorodności w strategiach ewolucyjnych jest operator mutacj, więc jego odpowiednia implementacja jest kluczowa w kontekście pożądanej jakości działania algorytmu. W związku z faktem, że działanie operatora mutacji jest zależne od
+    domeny wejściowej problemu, istotne jest, aby realizacja operatora mutacji spełniała pewne uniwersalne wymagania. Do tej pory takie zasady zostały sformułowane wyłącznie przez Beyer'a w \cite{Beyer:2001} i w dużej mierze dotyczą one własności rozkładu prawdopodobieństwa operatora mutacji. Jednym z założeń jest własność \textbf{osiągalności} (ang. \textit{reachability}), która polega na tym, aby przy pomocy mutacji każdy punkt przestrzeni przeszukiwań $S$ dało osiągnąć się z pewnego stanu początkowego w skończonym czasie działania algorytmu. Wymaganie to można sprowadzić do tego, aby nośnik funkcji gęstości prawdopodobieństwa, która służy do utworzenia zaburzenia losowego losowego mutacji, był tożsamy przestrzeni przeszukiwań $S$. Innymi słowy, zakładając, że $\wek{d}$ oznacza wektor zaburzeń losowych, które generowane są z rozkładu $P_{\wek{\theta}}$ wymaga się, aby zachodziła następują relacja:
     \begin{equation}
         \label{eq:es-supp}
-        \text{supp}\left(P_{\theta}\right) = I
+        \text{supp}\left(P_{\wek{\theta}}\right) = I
     \end{equation}
-    
-    Ponadto należy zaznaczyć, że własność ta nie ogranicza się do strategii ewolucyjnych, ale stosuje się do każdego typu algorytmu ewolucyjnego. Innymi wymaganiami, które są do siebie zbliżone, jest to, aby operator mutacji był \textbf{nieobciążony} (ang. \textit{unbiasedness}) oraz symetryczny (ang. \textit{symmetry}). Spełnienie pierwszej własności oznacza, że rozkład prawdopodobieństwa, na którym bazuje operator mutacji, w swojej rodzinie rozkładów parametryzowanej przez $\theta$ jest rozkładem o maksymalnej entropii, tj.:
+    Ponadto należy zaznaczyć, że własność ta nie ogranicza się do strategii ewolucyjnych, ale stosuje się do każdego typu algorytmu ewolucyjnego. Innymi wymaganiami, które są do siebie zbliżone, jest to, aby operator mutacji był \textbf{nieobciążony} (ang. \textit{unbiasedness}) oraz \textbf{symetryczny} (ang. \textit{symmetry}). Spełnienie pierwszej własności oznacza, że rozkład prawdopodobieństwa, na którym bazuje operator mutacji, w swojej rodzinie rozkładów parametryzowanej przez wektor parametrów $\wek{\theta} = (\theta_1, \dots, \theta_n)$ jest rozkładem o maksymalnej entropii, tj.:
     \begin{equation}
         \label{eq:es-entropy}
         P_{\theta} = \max_{P_\theta \in \mathcal{P}_{\theta}}
@@ -75,34 +66,33 @@
                 -\sum_{k \geq 1} f_{k} \text{log}f_k,\; \mbox{rozkład dyskretny}.
             \end{cases}
     \end{equation}
-    Druga własność oznacza, że dla dowolnego $\alpha \in \mathbb{R}$ istnieje pewien punkt $x_0$, dla którego zachodzi:
+    Druga własność oznacza, że dla dowolnego $\wek{\alpha} \in \mathbb{R}^{n}$ istnieje pewien punkt $\wek{x}_0$ tej przestrzeni, dla którego zachodzi:
     \begin{equation}
         \label{eq:es-sym}
-        f(x_0 - \alpha) = f(x_0 + \alpha).
+        f(\wek{x}_0 - \wek{\alpha}) = f(\wek{x}_0 + \wek{\alpha}).
     \end{equation}
-    Z własności (\ref{eq:es-sym}) wynika fakt, że prawdopodobieństwo wylosowania osobnika w dowolnym sąsiedztwie punktu $x_0$ jest takie samo. Oznacza to, że oczekiwana zmiana stanu wyjściowego wskutek mutacji powinna wynosić zero. 
+    Z własności (\ref{eq:es-sym}) wynika fakt, że prawdopodobieństwo wylosowania osobnika w dowolnym sąsiedztwie punktu $\wek{x}_0$ jest takie samo. Oznacza to, że oczekiwana zmiana stanu wyjściowego wskutek mutacji powinna wynosić zero. 
     W kontekście strategii ewolucyjnych, które są przedmiotem niniejszej pracy, w naturalny sposób wynika, że rozkładem, który spełnia własności (\ref{eq:es-supp})-(\ref{eq:es-sym}) jest rozkład normalny o funkcji gęstości prawdopodobieństwa:
     \begin{equation*}
-        f(x)=\frac{1}{\sqrt{(2\pi)^n|\boldsymbol C|}}
+        f(\wek{x})=\frac{1}{\sqrt{(2\pi)^n|\boldsymbol C|}}
             \exp
             \left(
-                -\frac{1}{2}({x}-{x_0})^T{\boldsymbol C}^{-1}({x}-{x_0}),
+                -\frac{1}{2}({\wek{x}}-{\wek{x}_0})^T{\boldsymbol C}^{-1}({\wek{x}}-{\wek{x}_0}),
             \right)
     \end{equation*}
-    w którym $\mat{C}$ jest macierzą kowariancji, tj. macierzą symetryczną i dodatnie określoną. Jeśli $\mat{C}$ jest równa macierzy jednostkowej $\mat{I}_n$, to mutacja nazywana jest izotropiczną, a w przeciwnym przypadku -- nieizotropiczną. Wybór typu mutacji jest zależny od kształtu poziomic funkcji celu, po której przemieszcza się populacja punktów tworzona przez algorytm, co jest przedstawione na rysunku \ref{fig:poziomice}.
+    w którym $\mat{C}$ jest macierzą kowariancji, tj. macierzą symetryczną i dodatnie określoną. Jeśli $\mat{C}$ jest równa macierzy jednostkowej $\mat{I}_n$, to mutacja nazywana jest izotropiczną, natomiast w przeciwnym przypadku -- nieizotropiczną. Wybór typu mutacji jest zależny od kształtu poziomic funkcji celu, po której przemieszcza się populacja punktów tworzona przez algorytm, co jest przedstawione na rysunku \ref{fig:poziomice}.
      \begin{figure}[h]
         \centering
-        \includegraphics[width=0.8\textwidth, heigth=1.5\textheigth]{thesis/img/alg-taxonomy.png}
+        \includegraphics[width=0.8\textwidth]{thesis/img/es-covariance-geom-demand.png}
         \caption{Szkic. Zrobić po polsku, svg/eps.}
         \label{fig:poziomice}
     \end{figure}
-    W obecnie stosowanych algorytmach strategii ewolucyjnych dobranie odpowiedniej macierzy kowariancji scedowane jest na sam algorytm, co jest tematem podrozdziału 
-    \ref{subsubsec:es-cma}.
-    Ostatnim wymaganiem, które jest stawiane wobec operatora mutacji, jest jego \textbf{skalowalność} (ang. \textit{scalability}). Wymaganie to można rozpatrywać z punktu widzenia logiki samego algorytmu, tj. amplituda dodawanego zaburzenie losowego musi dać się stroić za pomocą pewnego parametru, ale również z punktu widzenia stosowanego rozkładu prawdopodobieństwo do utworzenia tego zaburzenia. Rozkład ten musi należeć do rodziny rozkładów zamkniętych względem skalowania (ang. \textit{location-scale family}), aby przemnożenie przez pewną liczbę $\sigma >0$, nazywaną zasięgiem mutacji, nie zmieniało rozkładu prawdopodobieństwa. 
-    Należy zaznaczyć, że postawione przez Beyer'a wymagania wobec operatora mutacji nie są obowiązujące, co tyczy się również stosowania rozkładu normalnego w strategiach ewolucyjnych poświęconych przestrzeniom $R^{n}$. Z powodzeniem stosowano rozkłady kierunkowe z rodziny von Mises'a-Fisher'a (vM-F), które łamią własność braku obciążenia oraz symetryczności rozkładu prawdopodobieństwa \source. Przyczyny prób stosowania rozkładów kierunkowych należy upatrywać w defekcie rozkładu normalnego, który wynika z jego symetryczności. Rozkład ten przydziela takie samo prawdopodobieństwo wylosowania osobników zarówno w preferowanych kierunkach przeszukiwań, tj. mniejszych wartościach funkcji celu, jak i kierunkach wzrostu wartości funkcji celu. Gęstości obu rozkładów przedstawione są na rysunku \ref{fig:vM-F}.
+    W obecnie stosowanych algorytmach strategii ewolucyjnych dobranie odpowiedniej macierzy kowariancji scedowane jest na sam algorytm, co jest tematem podrozdziału \ref{subsec:cma-es}.
+    Ostatnim wymaganiem, które jest stawiane wobec operatora mutacji, jest jego \textbf{skalowalność} (ang. \textit{scalability}). Wymaganie to można rozpatrywać z punktu widzenia logiki samego algorytmu, tj. amplituda dodawanego zaburzenie losowego musi dać się stroić za pomocą pewnego parametru, ale również z punktu widzenia stosowanego rozkładu prawdopodobieństwo do utworzenia tego zaburzenia. Rozkład ten musi należeć do rodziny rozkładów zamkniętych względem skalowania (ang. \textit{location-scale family}), aby przemnożenie przez pewną liczbę $\sigma >0$, nazywaną zasięgiem mutacji, nie zmieniało rozkładu prawdopodobieństwa. \\
+    Należy zaznaczyć, że postawione przez Beyer'a wymagania wobec operatora mutacji nie są obowiązujące, co tyczy się również stosowania rozkładu normalnego w strategiach ewolucyjnych poświęconych przestrzeniom $R^{n}$. Z powodzeniem stosowano rozkłady kierunkowe z rodziny von Mises'a-Fisher'a (dalej vM-F), które łamią własność braku obciążenia oraz symetryczności rozkładu prawdopodobieństwa \cite{Obuchowicz:2006}. Przyczyny prób stosowania rozkładów kierunkowych należy upatrywać w defekcie rozkładu normalnego, który wynika z jego symetryczności. Rozkład ten przydziela takie samo prawdopodobieństwo wylosowania osobników zarówno w preferowanych kierunkach przeszukiwań, tj. mniejszych wartościach funkcji celu, jak i kierunkach wzrostu wartości funkcji celu. Gęstości obu rozkładów przedstawione są na rysunku \ref{fig:vM-F}.
      \begin{figure}[h]
         \centering
-        \includegraphics[width=0.8\textwidth, heigth=1.5\textheigth]{thesis/img/alg-taxonomy.png}
+        \includegraphics[width=0.8\textwidth]{thesis/img/es-symmetric-distribution.png}
         \caption{Szkic. Zrobić po polsku, svg/eps.}
         \label{fig:vM-F}
     \end{figure}
@@ -113,35 +103,45 @@
     Ze względu na fakt, że strategie ewolucyjne należą do rodziny metod optymalizacji stochastycznej nie gwarantują one zbieżności do optimum globalnego minimalizowanej funkcji.
     Najczęstszym typem zbieżności, który porusza się w kontekście zbieżności strategii ewolucyjnych, jest zbieżność asymptotyczna. Strategia ewolucyjna jest zbieżna asymptotycznie do optimum globalnego $\hat f$, gdy poniższe prawdopodobieństwo:
     \begin{equation*}
-        \mathbb{P}(|\hat{f} - f(x^{t}_{1:\mu})| \leq \espilon)
+        \mathbb{P}(|\hat{f} - f(\wke{x}^{t}_{1:\mu})| \leq \espilon)
     \end{equation*}
-    jest równe 1 wraz z $t \rightarrow \infty$ dla pewnego $\epsilon >0$ \source.
-    Jednakże nawet udowodnienie tej własności, które dla algorytmu $(1+1)$-ES zostało wykazane w nietrywialny sposób \source, nie niesie ze sobą praktycznych implikacji ze względu na założenie nieskończonej liczby generacji potrzebnej do osiągnięcia optimum globalnego.
-    W związku z powyższymi trudnościami, które pojawiają się przy dowodzeniu globalnej zbieżności metod strategii ewolucyjnych, rozważa się tzw. lokalne miary jakości, a w szczególności tempo postępu $\phi$ (ang. \texit{progress rate}) definiowane w następujący sposób: 
+    jest równe 1 wraz z liczbą iteracji algorytmu dążącej do nieskończoności, tj. $t \rightarrow \infty$, dla pewnego $\epsilon >0$ \cite{Kramer:2008}.
+    Jednakże nawet udowodnienie tej własności, które dla algorytmu $(1+1)$-ES zostało wykazane w nietrywialny sposób \cite{Rechenberg:1973}, nie niesie ze sobą praktycznych implikacji ze względu na założenie nieskończonej liczby generacji potrzebnej do osiągnięcia optimum globalnego.\\
+    W związku z powyższymi trudnościami, które pojawiają się przy dowodzeniu globalnej zbieżności metod strategii ewolucyjnych, rozważa się tzw. lokalne miary jakości. Jedną najczęściej rozważanych miar jest  szczególności tempo postępu $\phi$ (ang. \textit{progress rate}) definiowane w następujący sposób: 
     \begin{equation}
         \label{eq:prog-rate}
-        \phi = E\left\{|\hat{f} - f(\left<x\right>^{t})| - |\hat{f} - f(\left<x\right>^{t+1})| |P^{t} \right\}
+        \phi = E\left\{|\hat{f} - f(\left<\wek{x}\right>^{t})| - |\hat{f} - f(\left<\wek{x}\right>^{t+1})| |P^{t} \right\}
     \end{equation}
-    tj. jako warunkowa wartość oczekiwana zmiany odległości środka populacji od optimum globalnego na przestrzeni dwóch następujących po sobie generacji. Analityczne wyliczenie wartości (\ref{eq:prog-rate}) również jest dla większości funkcji celu bardzo trudne i najprostszym modelem funkcji, dla której wyliczenie (\ref{eq:prog-rate}) daje się wykonać jest funkcja sferyczna postaci:
+    tj. jako warunkowa wartość oczekiwana zmiany odległości środka populacji $\left<\wek{x}\right>$ od optimum globalnego na przestrzeni dwóch następujących po sobie generacji. Analityczne wyliczenie wartości (\ref{eq:prog-rate}) również jest dla większości funkcji celu bardzo trudne i najprostszym modelem funkcji, dla której wyliczenie (\ref{eq:prog-rate}) daje się wykonać jest funkcja sferyczna postaci:
     \begin{equation*}
-        f(x) = \sum^{n}_{i = 1}x^{2}_{i}.
+        f(\wek{x}) = \sum^{n}_{i = 1}x^{2}_{i}.
     \end{equation*}
     Należy jednak zaznaczyć, że dotychczasowe próby analitycznego wyznaczania tempa postępu -- podobnie jak próby dowodzenia zbieżności -- bazują na założeniach, które trudno jest utrzymać w praktycznych zastosowaniach strategii ewolucyjnych, typu stały zasięg mutacji
     \begin{equation*}
-        \sigma = const\times||x||.
+        \sigma = const\times||\wek{x}||.
     \end{equation*}
-    Najbardziej miarodajną metodą zbadania tempa zbieżności czy innych wyznaczników jakości działania strategii ewolucyjnych pozostają badania empiryczne, którym poświęcony jest rozdział \ref{subsec:eksperymenty}. 
-
+    Najbardziej miarodajną metodą zbadania tempa zbieżności  i innych wyznaczników jakości działania strategii ewolucyjnych pozostają badania empiryczne, którym poświęcony jest rozdział \ref{subsec:eksperymenty}. 
 \subsection{Samoadaptacja w strategiach ewolucyjnych}
 \label{subsubsec:es-autoadapt}
-    Mechanizmem wyróżniającym strategie ewolucyjne na tle pozostałych paradygmatów była samoadaptacja parametrów sterujących algorytmem. Wprowadzenie tego mechanizmu przez Rechenberga wynikało z obserwacji tempa zbieżności oraz tempa postępu $\phi$ algorytmu $(1+1)$-ES ze stałym zasięgiem mutacji na funkcji sferycznej \source. Na podstawie analizy tempa zbieżności w czasie działania algorytmu zauważyć się dało, że algorytm w stosunkowo krótkim czasie trwania (mierzonym w liczbach generacji) traci na tempie zbieżności i tym samym osiąga przedwczesną zbieżność. Z kolei analiza tempa postępu $\phi$ na przestrzeni generacji w funkcji zasięgu mutacji $\sigma$ ujawniła, że jakość działania algorytmu $(1+1)$-ES jest silnie zależna przyjętej wartości $\sigma$. Obie zależności przedstawione są na rysunku \ref{fig:es-evolwin}. 
+    Mechanizmem wyróżniającym strategie ewolucyjne na tle pozostałych paradygmatów była samoadaptacja parametrów sterujących algorytmem. Wprowadzenie tego mechanizmu przez Rechenberg'a wynikało z obserwacji tempa zbieżności oraz tempa postępu $\phi$ algorytmu $(1+1)$-ES ze stałym zasięgiem mutacji na funkcji sferycznej \cite{Rechenberg:1973}. Na podstawie analizy tempa zbieżności w czasie działania algorytmu zauważyć się dało, że algorytm w stosunkowo krótkim czasie trwania (mierzonym w liczbach generacji) traci na tempie zbieżności i tym samym osiąga przedwczesną zbieżność. Z kolei analiza tempa postępu $\phi$ na przestrzeni generacji w funkcji zasięgu mutacji $\sigma$ ujawniła, że jakość działania algorytmu $(1+1)$-ES jest silnie zależna przyjętej wartości $\sigma$. Obie zależności przedstawione są na rysunku \ref{fig:conv-win}. \\
     \begin{figure}[h]
         \centering
-        \includegraphics[width=0.8\textwidth, heigth=1.5\textheigth]{thesis/img/alg-taxonomy.png}
-        \caption{Szkic. Zrobić po polsku, svg/eps.}
-        \label{fig:poziomice}
+            \begin{subfigure}
+                \centering
+                \includegraphics[width=0.45\textwidth]{thesis/img/es-convergence.png}
+                \caption{Szkic. Zrobić po polsku, svg/eps.}
+                \label{fig:es-convergence}
+            \end{subfigure}
+            \begin{subfigure}
+                \centering
+                \includegraphics[width=0.45\textwidth]{thesis/img/es-evol-window.png}
+                \caption{Szkic. Zrobić po polsku, svg/eps.}
+                \label{fig:es-evol-window}
+            \end{subfigure}
+        \caption{Wykres.}
+        \label{fig:conv-win}
     \end{figure}
-    Powyższe obserwacje skutkowały pierwszym mechanizmem samoadaptacji zasięgu mutacji, tj. regułą $1/5$ sukcesu. Reguła ta oparta jest na wyznaczeniu sukcesu prawdopodobieństwa $P_{s}$ liczonego jako stosunek liczby udanych mutacji $M_{s}$, tj. takich, w których mutant osiągał lepsze przystosowanie od osobnika bazowego, do długości okresu generacji między którymi wyliczane jest prawdopodobieństwo $T$, a parametr $\sigma$ jest stały, tj.:
+   \noindent Powyższe obserwacje skutkowały pierwszym mechanizmem samoadaptacji zasięgu mutacji, tj. regułą $1/5$ sukcesu. Reguła ta oparta jest na wyznaczeniu sukcesu prawdopodobieństwa $P_{s}$ liczonego jako stosunek liczby udanych mutacji $M_{s}$, tj. takich, w których mutant osiągał lepsze przystosowanie od osobnika bazowego, do długości okresu generacji między którymi wyliczane jest prawdopodobieństwo $T$, a parametr $\sigma$ jest stały, tj.:
     \begin{equation}
         P_{s} = \frac{M_{s}}{T}.
     \end{equation}
@@ -149,38 +149,83 @@
     \begin{equation*}
         \sigma = 
             \begin{cases}
-                a^{-1}\sigma, P_s > 1/5 \\
-                a\sigma, P_s < 1/5 \\
-                \sigma, P_s = 1/5.
+                a^{-1}\sigma,\; P_s > 1/5 \\
+                a\sigma,\; P_s < 1/5 \\
+                \sigma,\; P_s = 1/5.
             \end{cases}
     \end{equation*}
-    Fakt, że zmiana parametru $\sigma$ następuje w sposób multiplikatywny, a nie addytywny wynika bezpośrednio z warunki skalowalności opisanego w podrozdziale \ref{subsubsec:es-op-mut} oraz stosowanego rozkładu prawdopodobieństwa. Addytywna realizacja adaptacji parametru $\sigma$, który jest jednocześnie wariancją rozkładu normalnego, mogłaby prowadzić do jego ujemnych wartości. Reguła $1/5$ sukcesu ze względu na trudności w sformułowaniu sposobu obliczania prawdopodobieństwa sukcesu $P_{s}$ dla strategii ewolucyjnych typu $(\mu\overset{+}{,}\lambda)$ oraz określenia optymalnych wartości parametru $a$ znalazła zastosowanie wyłącznie dla algorytmu $(1+1)$-ES. Mechanizmy samoadaptacji
-    dla wariantów z liczniejszymi populacjami bazowały na wprowadzeniu wektora parametrów $s$, który składał się z zasięgów mutacji $\sigma_{i}$ dedykowanych każdej zmiennej decyzyjnej problemu, tj.:
+    gdzie $a \in \mathbb{R}$ jest parametrem zewnętrznym algorytmu.
+    Fakt, że zmiana zasięgu mutacji następuje w sposób multiplikatywny, a nie addytywny wynika bezpośrednio z warunku skalowalności opisanego w podrozdziale \ref{subsubsec:es-op-mut} oraz stosowanego rozkładu prawdopodobieństwa. W przypadku addytywnej realizacji adaptacji parametru $\sigma$, który jest jednocześnie wariancją rozkładu normalnego, mogłaby prowadzić do jego ujemnych wartości. Reguła $1/5$ sukcesu ze względu na trudności w sformułowaniu sposobu obliczania prawdopodobieństwa sukcesu $P_{s}$ dla strategii ewolucyjnych typu $(\mu\overset{+}{,}\lambda)$ oraz określenia optymalnych wartości parametru $a$ znalazła zastosowanie wyłącznie dla algorytmu $(1+1)$-ES. Mechanizmy samoadaptacji
+    dla wariantów z liczniejszymi populacjami bazowały na rozszerzeniu osobnika $\wek{x}_{i}$ o wektor parametrów $\wek{s}_{i}$, który składał się z zasięgów mutacji $\sigma_{i}$ dedykowanych każdej zmiennej decyzyjnej, które reprezentowały osobnika, tj.:
     \begin{equation*}
-        s = (\sigma_1, \dots, \sigma_{n}).
+        \begin{split}
+             \wek{y}_{i} & = (\wek{x}_{i}, \wek{s}_{i}) \\
+             & = (x_{i, 1}, \dots, x_{i, n}, \sigma_{i, 1}, \dots, \sigma_{i, n}).
+        \end{split}
     \end{equation*}
-    Wektor ten poddawany był ewolucji na tych samych zasadach co osobnik populacji. Jednakże mechanizm ten, nazywany $\sigma$-SA, prowadził często do przedwczesnej zbieżności \soruce. Alternatywnym podejściem do samoadaptacji było stosowanie zagnieżdżonych strategii ewolucyjnych (ang. \textit{Meta-ES}) typu $[\mu^'/\rho^'\overset{+}{,}\lambda^'(\mu/\rho\overset{+}{,}\lambda)^{\gamma}]$. Metoda ta polega na uruchomieniu $\lambda^{'}$ algorytmów ES typu $(\mu/\rho)\overset{+}{,}\lambda)$
-    równolegle i w pełnej izolacji na $\gamma$ iteracji. Następnie wybierane jest $\mu^{'}$ najlepszych wariantów uruchomionych algorytmów i przeprowadzana jest ich rekombinacja. Pomimo udowodnienia, że nawet proste warianty zagnieżdżonych strategii ewolucyjnych są w stanie znaleźć optymalną wartość zasięgu mutacji na funkcji sferycznej \source ich stosowanie jest ograniczone ze względu na dużą złożoność obliczeniową. Znacznie bardziej wydajną metodą adaptacji zasięgu mutacji i powszechnie stosowną w nowoczesnych wariantach strategii ewolucyjnych jest heurystyka CSA (ang. \textit{Cumulative Step-size adaptation}), której omówienie znajduje się w następnym podrozdziale \ref{subsubsec:cma-es}.
-    Zasięg mutacji $\sigma$ lub w ogólności operator mutacji jest najczęściej rozważanym parametrem strategii ewolucyjnych w kontekście samoadaptacji. Istnieją jednakże warianty strategii ewolucyjnych, w których pewnej formie strojenia poddawane są parametry rozważane standardowo jako parametry zewnętrzne. Jednym z nich jest heurystyka IPOP (ang. \textit{Increasing POPulation}) stosowana w algorytmie CMA-ES, która zwiększa liczebność populacji osobników potomnych $\lambda$ ze stałym mnożnikiem, gdy spełnione są kryteria świadczące o przedwczesnej zbieżności algorytmu \source. 
-    
-    
-    
+    Wektor $\wek{y}_{i}$ poddawany był ewolucji na tych samych zasadach co osobnik populacji. Jednakże mechanizm ten, nazywany $\sigma$-SA, prowadził często do przedwczesnej zbieżności strategie ewolucyjne z rodziny SA-ES \cite{Hansen:2015}. Ponadto jego istotną wadą jest fakt zależności od losowości w doborze zasięgu mutacji danego osobnika, która może powodować sytuacje, w których jakościowy osobnik posiada nieodpowiedni zasięg mutacji lub odwrotnie. \\
+    Alternatywnym podejściem do samoadaptacji było stosowanie zagnieżdżonych strategii ewolucyjnych (ang. \textit{Meta-ES}) typu $[\mu^{'}/\rho^{'}\overset{+}{,}\lambda^{'}(\mu/\rho\overset{+}{,}\lambda)^{\gamma}]$. Metoda ta polega na uruchomieniu $\lambda^{'}$ algorytmów ES typu $(\mu/\rho)\overset{+}{,}\lambda)$
+    równolegle i w pełnej izolacji na $\gamma$ iteracji. Następnie wybierane jest $\mu^{'}$ najlepszych wariantów uruchomionych algorytmów i przeprowadzana jest ich rekombinacja. Pomimo udowodnienia, że nawet proste warianty zagnieżdżonych strategii ewolucyjnych są w stanie znaleźć optymalną wartość zasięgu mutacji na funkcji sferycznej \cite{Grunz:1994} ich stosowanie jest ograniczone ze względu na dużą złożoność obliczeniową. Znacznie bardziej wydajną metodą adaptacji zasięgu mutacji i powszechnie stosowną w nowoczesnych wariantach strategii ewolucyjnych jest heurystyka CSA (ang. \textit{Cumulative Step-size Adaptation}), której omówienie znajduje się w następnym podrozdziale \ref{subsec:cma-es}.
+    Operator mutacji i jego parametry są najczęściej rozważanymi elementami strategii ewolucyjnych w kontekście mechanizmów samoadaptacji. Istnieją jednakże warianty strategii ewolucyjnych, w których pewnej formie strojenia poddawane są parametry rozważane standardowo jako parametry zewnętrzne. Jednym z nich jest heurystyka IPOP (ang. \textit{Increasing POPulation}) stosowana w algorytmie CMA-ES, która zwiększa liczebność populacji osobników potomnych $\lambda$ ze stałym mnożnikiem, gdy spełnione są kryteria świadczące o przedwczesnej zbieżności algorytmu \cite{Hansen:IPOP}. 
 \subsection{Algorytm CMA-ES}
 \label{subsec:cma-es}
-
-
-
-    
-
-\begin{algorithm}[h]
-\caption{CMA-ES}
-\label{alg-CMA-ES}
-\begin{algorithmic}[1]
-\STATE $t \gets 1$
-\STATE initialize$(\wek{m}^1,\sigma^1, C^1)$
-\STATE $\wek{p}_c^1 \gets \wek{0}$, $\wek{p}_\sigma^1 \gets \wek{0}$
-\WHILE{!stop}
-   \FOR{$i=1$ \TO $\lambda$}
+    Na podstawie dotychczas opisanych mechanizmów samoadaptacji można wyróżnić dwa problemy związane z działaniem operatora mutacji:
+    \begin{itemize}
+        \item{stosowane procedury adaptacji zasięgu mutacji w trakcie działania algorytmu są zależne od losowości lub wymagają nieakceptowalnego narzutu obliczeniowego,}
+        \item{ograniczenie mutacji do mutacji izotropicznej jest niewystarczające dla większości funkcji celu.} 
+    \end{itemize}
+    Odpowiedzią na pierwszą grupę problemów było dostosowanie heurystyki ścieżek ewolucyjnych (ang. \texit{evolution path}) wprowadzonej przez Hansena i  Ostermeir'a w \cite{Hansen:2001} do kontroli zasięgu mutacji. Metoda CSA (ang. \textit{Cumulative Step-size adapdation}) bazuje na wektorze $\wek{p}_{\sigma}$, który wyznacza trajektorię dotychczas stosowanych kierunków mutacji i tym samym zawiera informacje o wzajemnych relacjach między nimi. 
+    Istotna w tym kontekście jest korelacja między kolejnymi kierunkami przesunięć powstałymi w skutek mutacji -- na jej podstawie heurystyka jest w stanie dostosować zasięg mutacji. 
+    Norma euklidesowa wektora $\wek{p}_\sigma$ porównywana jest z
+    oczekiwaną długością $n$-wymiarowego wektora losowego z rozkładu $\mathcal{N}(0, \mat{I}_n)$. Wynik porównania służy do dostosowania 
+    wartości zasięgu mutacji $\sigma$ w następnej generacji algorytmu. Jeśli stosunek norm przedstawiony w równaniu (\ref{eq:csa}):
+    \begin{equation}
+        \label{eq:csa}
+        \frac{\|\wek{p}_\sigma\|}{E\|N(\wek{0},\mat{I})\|}
+    \end{equation}  
+    jest większy od jedności, to zasięg mutacji powinien zostać zwiększony -- kolejne punkty trajektorii ścieżki ewolucyjnej są ze sobą skorelowane. W przeciwnym razie zasięg powinien zostać zmniejszony, co oznacza, że kolejny punkty trajektorii są ujemnie skorelowane i wzajemnie kompensują się. Opisana sytuacja przedstawiona jest na rysunku \ref{fig:csa}.
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.8\textwidth]{thesis/img/es-csa-vectors.png}
+        \caption{Caption}
+        \label{fig:csa}
+    \end{figure}
+    Informacje o kierunkach przesunięcia wraz z czasem działania algorytmu są wygaszane wykładniczo (ang. \textit{exponentially decaying average}), co przedstawione jest w równaniu (\ref{eq:csa})
+    \begin{equation}
+        \label{eq:csa}
+        \wek{p}^{t+1}_{\sigma} = (1-c_\sigma)\wek{p}^{t}_{\sigma} + c_{\sigma}\sum^{\lambda}_{i = 1} \wek{d}_{i}
+    \end{equation}
+    gdzie $\wek{d}_i$ reprezentuje wektor zaburzeń powstałych wskutek losowania z rozkładu $N(0, \mat{I})$. Należy zaznaczyć, że sposób wyliczania kolejnych wartości ścieżki $\wek{p}_\sigma$ przedstawiony w równaniu (\ref{eq:csa}) jest uproszczony i nie jest bezpośrednio stosowany w algorytmach opartych o heurystykę CSA.\\
+    \indent Możliwość dostosowania kształtu elipsoid koncentracji rozkładu normalnego, który jest stosowany do realizacji operatora mutacji, była pożądaną cechą strategii ewolucyjnych i została wprowadzona przez Hansena w \cite{Hansen:CMA}. Wskutek zaproponowanej przez niego reguły CMA (ang. \textit{Covariance Matrix Adaptation}) algorytm lokalnie aproksymuje funkcję celu oraz tym samym zwiększa szansę na wylosowanie punktów
+    blisko optimum lokalnego. Efekt działania adaptacji macierzy kowariancji przedstawiony jest na rysunku \ref{fig:cma}.
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.8\textwidth]{thesis/img/es-covariance-geom.png}
+        \caption{Caption}
+        \label{fig:cma}
+    \end{figure}
+    Macierz kowariancji $\mat{C}$ wyliczana jest jako suma złożona z dwóch składników. Pierwszy z nich, $\mat{C}\mu$, jest macierzą rangi $\mu$, która powstaje jako ważona suma iloczynu zewnętrznego (ang. \textit{outer product}) $\mu$ wektorów zaburzeń $\wek{d}_{i}$. Drugi z nich,  $\mat{C}_1$, jest macierzą o rzędzie równym 1 powstałą jako iloczyn zewnętrzny wektora ścieżki ewolucyjnej, która jest utrzymywana dla macierzy kowariancji przez algorytm $\wek{p}_C$.  
+    Oba składniki mają na celu zwiększenie prawdopodobieństwa wylosowania wektorów w kierunku poprawy, tj. mniejszej wartości funkcji celu. Wkład macierzy $\mat{C}^t_\mu$ reprezentuje zysk, który przynosi selekcja osobników, a z kolei macierz $\mat{C}_1$ -- zysk wnoszony przez ścieżkę ewolucyjną $\wek{p}_C$. Koncepcyjny sposób adaptacji macierzy kowariancji w kolejnych generacjach algorytmu przedstawia równanie
+    (\ref{eq:cma}). Podobnie jak w przypadku wyliczania ścieżki ewolucyjnej $p_\sigma$ stosowane jest wygaszanie wykładnicze wartości macierzy kowariancji z poprzednich generacji. 
+    \begin{equation}
+    \label{eq:cma}
+    \begin{split}
+         C^{t+1} & = (1 - c_{1} - c_{\mu})C^{t} \\
+         & + c_{1}\textbf{p}_{C}^{t+1}(\textbf{p}_{C}^{t+1})^{T} \\
+        & + c_{\mu}\sum^{\lambda}_{i =1}w_{i}\textbf{d}_{i}^{t+1}(\textbf{d}_{i}^{t+1})^{T} \\
+    \end{split}
+  \end{equation}
+  
+    Algorytm $(\mu/\mu, \lambda)$-CMA-ES stał się obecnie standardem wśród algorytmów strategii ewolucyjnych ze względu na wysoką jakość jego działania dla wielu problemów optymalizacyjnych. Wydruk \ref{fig:alg-CMA-ES} przedstawia pseudokod działania algorytmu CMA-ES. 
+  \begin{algorithm}
+  \renewcommand{\thealgorithm}{}
+  \caption{CMA-ES} 
+  \label{fig:alg-CMA-ES}
+  \begin{algorithmic}[1]
+  \STATE $t \gets 1$
+    \STATE $\wek{p}_c^1 \gets \wek{0}$, $\wek{p}_\sigma^1 \gets \wek{0}$
+    \WHILE{!stop}
+    \FOR{$i=1$ \to $\lambda$}
       \STATE $ \wek{d}_i^t \sim N(\wek{0}, \mat{C}^t) $
       \STATE $\wek{x}_i^t=\wek{m}^{t} + \sigma^t \wek{d}_i^t $
       \STATE evaluate $(\wek{x}_i^t)$
@@ -188,13 +233,21 @@
    \STATE sort $ \left(\{ \wek{x}_i^t \} \right) $
    \STATE $\wek{\Delta}^{t} \gets \sum_{i=1}^\mu w_i \wek{d}_i^t $
    \STATE $\wek{m}^{t+1} \gets \wek{m}^{t+1} + \sigma^t \wek{\Delta}^{t} $
-   \STATE $\wek{p}_c^{t+1} \gets (1-c_p)\wek{p}_c^t + \sqrt{\mu_\text{eff} c_p(2-c_p)} \cdot \wek{\Delta}^{t}$ where \newline
+   \STATE $\wek{p}_c^{t+1} \gets (1-c_p)\wek{p}_c^t + \sqrt{\mu_\text{eff} c_p(2-c_p)} \cdot \wek{\Delta}^{t}$ gdzie \newline
           $\qquad \mu_\text{eff}=1/\left(\sum_{i=1}^\mu (w_i)^2\right)$
-   \STATE $\mat{C}^{t+1} \gets (1-c_1-c_\mu)\mat{C}^t + c_1 \mat{C}^t_1 + c_\mu  \mat{C}^t_\mu$ where \newline
+   \STATE $\mat{C}^{t+1} \gets (1-c_1-c_\mu)\mat{C}^t + c_1 \mat{C}^t_1 + c_\mu  \mat{C}^t_\mu$ gdzie \newline
 $\qquad \mat{C}_\mu^t=\frac{1}{\mu_\text{eff}}\sum_{i=1}^\mu w_i(\wek{d}_i^t)(\wek{d}_i^t)^\tran$, \newline
 $\qquad \mat{C}_1^t=(\wek{p}_c^t)(\wek{p}_c^t)^\tran$
    \STATE $\sigma^{t+1} \gets $ CSA $(\sigma^t, \mat{C}^{t}, \wek{\Delta}^{t})$ 
    \STATE $t \gets t+1$
 \ENDWHILE
 \end{algorithmic}
-\end{algorithm}
+\end{algorithm} 
+     Metoda steruje trzema parametrami: wektorem oczekiwanym $\wek{m}^{t}$, macierzą kowariancji
+    $\mat{C}^t$ oraz zasięgiem mutacji $\sigma^t$. Parametry te specyfikują wielowymiarowy rozkład normalny, który służy do tworzenia nowych punktów. Indeks górny $t$ oznacza numer iteracji algorytmu.
+    W każdej iteracji algorytm przy pomocy rozkładu normalnego z zerową wartością oczekiwaną oraz macierzą kowariancji $\mat{C}^t$ generuje zbiór wektorów $\{\wek{d}_1^t,...,\wek{d}_\lambda^t\}$ (linia 6). 
+    Wektory te służą do zaburzenia obecnego w danej iteracji wektora wartości oczekiwanej $\wek{m}^t$ wskutek czego powstają wektory pochodne $\wek{x}^t_i=\wek{m}^t+\sigma^t \wek{d}_i^t$.
+    Zbiór wektorów pochodnych jest sortowany malejąco (linia 10). Ze zbioru $\lambda$ wektorów wydzielany jest podzbiór $\mu$ wektorów o najmniejszej wartości funkcji celu. Podzbiór ten służy do
+    aktualizacji parametrów algorytmu. \\
+    Wartość oczekiwana $\wek{m}^t$ rozkładu aktualizowana jest wskutek zsumowania jej ze średnią ważoną wyselekcjonowanych wektorów $\wek{d}_{i}^{t}$. Wagi $w_{i}$ powinny być liczbami dodatnimi, których suma wynosi $1$ \cite{Hansen:2001}.
+    Sposób aktualizacji macierzy kowariancji $C^{t}$ oraz parametru zasięgu mutacji $\sigma^{t}$ działa zgodnie z opisanymi powyżej regułami CMA oraz CSA.

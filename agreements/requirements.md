@@ -1,19 +1,17 @@
 # Dokumenty
 
-* [] Praca dyplomowa :: PDF
+* [] Praca dyplomowa :: **2020-08-20** => PDF
 
-* [] Opinia kierownika pracy :: PDF
+  - [] Opinia kierownika pracy :: PDF
 
-* [] Karta Informacyjna Dyplomanta
+  - [] Karta Informacyjna Dyplomanta :: PDF
 
-* [] Załącznik nr 3 :: PDF
+* [:heavy_check_mark:]] Załącznik nr 3 :: PNG
 
-* [] Załącznik nr 1 :: PDF
+* [:heavy_check_mark:]] Załącznik nr 1 :: PNG
 
-* [] Oświadczenia o suplemencie :: PDF
+* [:heavy_check_mark:] Oświadczenia o suplemencie :: PNG
 
-* [] Druk dotyczący umieszczenia danych w dyplomie :: PDF
+* [:heavy_check_mark:] Druk dotyczący umieszczenia danych w dyplomie :: PNG
 
-* [] Wniosek o wydanie dodatkowe odpisu dyuplomu 
-
-* [] Zgoda na uczestniczenie w egzaminie dyplomowym na terenie uczelni
+* [:heavy_check_mark:] Zgoda na uczestniczenie w egzaminie dyplomowym na terenie uczelni :: PNG

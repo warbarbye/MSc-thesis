@@ -6,9 +6,9 @@
 
   - [] Karta Informacyjna Dyplomanta :: PDF
 
-* [:heavy_check_mark:]] Załącznik nr 3 :: PNG
+* [:heavy_check_mark:] Załącznik nr 3 :: PNG
 
-* [:heavy_check_mark:]] Załącznik nr 1 :: PNG
+* [:heavy_check_mark:] Załącznik nr 1 :: PNG
 
 * [:heavy_check_mark:] Oświadczenia o suplemencie :: PNG
 

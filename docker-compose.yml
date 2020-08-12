@@ -1,0 +1,10 @@
+version: '2'
+services:
+  notebook:
+    build: .
+    ports:
+     - "8000:8000"
+    volumes:
+      - .:/home/jovyan
+    environment:
+      JUPYTER_ENABLE_LAB: "yes"

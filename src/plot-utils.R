@@ -256,8 +256,8 @@ rename_algs = function(dfx) {
         Algorytm = ifelse(method == "cma-es-csa", "CMA-ES-CSA", 
                       ifelse(method == "cma-es-msr", "CMA-ES-MSR", 
                             ifelse(method == "cma-es-quant", "CMA-ES-CPMF",
-                                  ifelse(method == "cma-es-ja", "CMA-ES-PPMF",
-                                        ifelse(method == "cma-es-expth", "CMA-ES-CPEF", 5)))))
+                                  ifelse(method == "cma-es-ja", "CMA-ES-CPEF",
+                                        ifelse(method == "cma-es-expth", "CMA-ES-PPMF", 5)))))
     ) %>%
     dplyr::select(-method)
 }
